@@ -1,0 +1,76 @@
+// @import "compass/css3";
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html, body {
+  font-size: 62.5%;
+  height: 100%;
+}
+$openSans: 'Open Sans', Helvetica, Arial, sans-serif;
+$bg1: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/svg-skew-1.jpg';
+$bg2: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/svg-skew-2.jpg';
+$bg3: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/svg-skew-3.jpg';
+$bg4: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/svg-skew-4.jpg';
+svg {
+  overflow: visible;
+  display: block;
+}
+.cont {
+  height: 100%;
+}
+.section {
+  height: 100%;
+  position: relative;
+  padding: 20vh 10rem 0;
+  
+  &__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 150%;
+    background-size: cover;
+    will-change: transform;
+  }
+  
+  &__svg {
+    position: absolute;
+    top: -20rem;
+    left: 0;
+    width: 100%;
+    height: calc(100% + 20rem);
+    
+    image {
+      backface-visibility: hidden;
+    }
+  }
+  
+  &__heading {
+    position: relative;
+    font-size: 5rem;
+    font-family: $openSans;
+    color: #fff;
+    text-transform: uppercase;
+  }
+  
+  &.section-1 {
+    
+    .section__bg {
+      will-change: transform;
+      transform: translate3d(0,(-100%/6),0);
+      background-image: url(#{$bg1});
+    }
+  }
+}
+
+.view-code {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  font-size: 3rem;
+  font-family: $openSans;
+  color: #fff;
+}

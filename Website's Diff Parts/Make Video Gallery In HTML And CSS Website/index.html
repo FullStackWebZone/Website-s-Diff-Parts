@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="style.css">
+	
+	</head>
+	<body>
+		<div class="container">
+			<h1>Make A Video Gallery</h1>
+			<div class="row">
+				<div class="col">
+					<div class="feature-img">
+						<img src="gallery/pic1.png" width="100%" onclick="playVideo('gallery/Ghungroo.mp4')">
+						<img src="gallery/play.png" class="play-btn" onclick="playVideo('gallery/Ghungroo.mp4')">
+					</div>
+				</div>
+				<div class="col">
+					<div class="small-img-row">
+						<div class="small-img">
+							<img src="gallery/pic2.png" width="100%" onclick="playVideo('gallery/KAR HAR MAIDAAN FATEH.mp4')">
+							<img src="gallery/play.png" class="play-btn" onclick="playVideo('gallery/KAR HAR MAIDAAN FATEH.mp4')">
+						</div>
+						<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit,<br> sed do eiusmod</p>
+					</div>
+
+					<div class="small-img-row">
+						<div class="small-img">
+							<img src="gallery/pic3.png" width="100%" onclick="playVideo('gallery/Tu Jo Mila Raabta.mp4')">
+							<img src="gallery/play.png" class="play-btn" onclick="playVideo('gallery/Tu Jo Mila Raabta.mp4')">
+						</div>
+						<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit,<br> sed do eiusmod</p>
+					</div>
+
+					<div class="small-img-row">
+						<div class="small-img">
+							<img src="gallery/pic4.png" width="100%" onclick="playVideo('gallery/MACHAYENGE.mp4')">
+							<img src="gallery/play.png" class="play-btn" onclick="playVideo('gallery/MACHAYENGE.mp4')">
+						</div>
+						<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit,<br> sed do eiusmod</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="video-player" id="videoPlayer">
+			<video width="100%" controls autoplay id="myVideo">
+				<source src="gallery/Ghungroo.mp4" type="video/mp4">
+			</video>
+			<img src="gallery/close.png" class="close-btn" onclick="stopVideo()">
+		</div>
+
+		<script type="text/javascript">
+			var videoPlayer = document.getElementById("videoPlayer");
+			var myVideo = document.getElementById("myVideo");
+
+			function stopVideo()
+			{
+				videoPlayer.style.display = "none";
+			}
+			function playVideo(file)
+			{
+				myVideo.src = file;
+				videoPlayer.style.display = "block";
+			}
+		</script>
+	</body>
+</html>

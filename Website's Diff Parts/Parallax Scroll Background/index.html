@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="style.css">
+	
+	</head>
+	<body>
+		<div class="cont">
+			<div class="section section-1">
+			  <div class="section__bg"></div>
+			  <h2 class="section__heading">Page 1</h2>
+			</div>
+			<div class="section section-2">
+			  <svg viewBox="0 0 1900 970" preserveAspectRatio="xMidYMin slice" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="section__svg">
+				<defs>
+				  <clipPath id="clippath-2">
+					<path fill="none" class="section__svg-path" d="M1900,0 0,150 0,970 1900,970z"/>
+				  </clipPath>
+				</defs>
+				<image xlink:href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/svg-skew-2.jpg" width="1900" height="1940" x="0" y="-35%" clip-path="url(#clippath-2)"></image>
+			  </svg>
+			  <h2 class="section__heading">Page 2</h2>
+			</div>
+			<div class="section section-3">
+			  <svg viewBox="0 0 1900 970" preserveAspectRatio="xMidYMin slice" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="section__svg">
+				<defs>
+				  <clipPath id="clippath-3">
+					<path fill="none" class="section__svg-path" d="M0,0 1900,150 1900,970 0,970z"/>
+				  </clipPath>
+				</defs>
+				<image xlink:href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/svg-skew-3.jpg" width="1900" height="1940" x="0" y="-35%" clip-path="url(#clippath-3)"></image>
+			  </svg>
+			  <h2 class="section__heading">Page 3</h2>
+			</div>
+			<div class="section section-4">
+			  <svg viewBox="0 0 1900 970" preserveAspectRatio="xMidYMin slice" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="section__svg">
+				<defs>
+				  <clipPath id="clippath-4">
+					<path fill="none" class="section__svg-path" d="M1900,0 0,150 0,970 1900,970z"/>
+				  </clipPath>
+				</defs>
+				<image xlink:href="https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/svg-skew-4.jpg" width="1900" height="1940" x="0" y="-35%" clip-path="url(#clippath-4)"></image>
+			  </svg>
+			  <h2 class="section__heading">Page 4</h2>
+			  <a href="https://codepen.io/suez/pen/QwoLBZ" target="_blank" class="view-code">View Code</a>
+			</div>
+		  </div>
+		<script type="text/javascript">
+		$(document).ready(function() {
+  
+  var $sections = $(".section"),
+      winW = $(window).width(),
+      winH = $(window).height();
+  
+  function setAttrs() {
+    $sections.each(function() {
+      var $this = $(this),
+          hasSvg = $this.children(".section__svg").length,
+          $bgCont = hasSvg ? $this.find(".section__svg") : $this,
+          offsetTop = $bgCont.offset().top,
+          height = $bgCont.outerHeight();
+      
+      $(this).data({"offset": offsetTop, "height": height});
+    });
+  }
+  
+  setAttrs();
+  
+  // debounce function from David Walsh blog
+  function debounce(func, wait, immediate) {
+    var timeout;
+    return function() {
+      var context = this, args = arguments;
+      var later = function() {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  };
+  
+  var resizeFn = debounce(function() {
+    setAttrs();
+    winW = $(window).width();
+    winH = $(window).height();
+  }, 50);
+  
+  $(window).on("resize", resizeFn);
+  
+  $(window).on("scroll", function() {
+    var st = $(window).scrollTop();
+    $sections.each(function() {
+      var $this = $(this),
+          $bg = $(this).find(".section__bg"),
+          $svgImg = $(this).find(".section__svg image"),
+          offsetTop = $this.data("offset"),
+          height = $this.data("height"),
+          ofTop = offsetTop - height,
+          percent = 0;
+      
+      percent = (st - offsetTop + winH) / height * 100;
+      if (st < offsetTop - winH) percent = 0;
+      if (st > offsetTop + height) percent = 200;
+      $bg.css("transform", "translate3d(0,"+(percent/-6)+"%,0)");
+      $svgImg.attr("y", (-35 - percent/7) + "%");
+    });
+  });
+  
+  $(window).trigger("scroll");
+  
+});
+		</script>
+	</body>
+	
+</html>

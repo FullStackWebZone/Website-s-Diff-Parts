@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+
+<body>
+	<div class="demo">
+		<div class="demo__overlay"></div>
+		<div class="demo__menu-btn">
+		  <div class="demo__menu-btn-line"></div>
+		  <div class="demo__menu-btn-line"></div>
+		  <div class="demo__menu-btn-line"></div>
+		</div>
+		<div class="demo__menu-bg"></div>
+		<div class="demo__menu-items">
+		  <div class="demo__menu-item" data-section="home">Home</div>
+		  <div class="demo__menu-item" data-section="source">Source of inspiration</div>
+		  <div class="demo__menu-item" data-section="demos">Other demos</div>
+		  <div class="demo__menu-item" data-section="about">About</div>
+		</div>
+		<div class="demo__section demo__section--home active-section">
+		  <h2 class="demo__section-heading">Home</h2>
+		  <p class="demo__description">Just click menu button</p>
+		</div>
+		<div class="demo__section demo__section--source">
+		  <h2 class="demo__section-heading">Source of inspiration</h2>
+		  <p class="demo__description">Based on 
+			<a class="demo__link" href="https://dribbble.com/shots/2286361-Hamburger-Menu-Animation" target="_blank">this dribbble shot</a> 
+			by Gal Shir</p>
+		</div>
+		<div class="demo__section demo__section--demos">
+		  <h2 class="demo__section-heading">Other demos</h2>
+		  <p class="demo__description">Check my 
+			<a class="demo__link" href="https://codepen.io/suez/pens/public/" target="_blank">other demos</a>
+		  </p>
+		</div>
+		<div class="demo__section demo__section--about">
+		  <h2 class="demo__section-heading">About</h2>
+		  <p class="demo__description">
+			<a class="demo__link" href="https://twitter.com/NikolayTalanov" target="_blank">My twitter</a>
+		  </p>
+		</div>
+	  </div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+var $demo = $(".demo");
+var menuTextAT = 500;
+
+$(document).on("click", ".demo__menu-btn", function() {
+  $demo.addClass("menu-active");
+});
+
+$(document).on("click", ".demo__menu-item", function() {
+  var $item = $(this);
+  var targetSection = $item.data("section");
+  $item.addClass("clicked");
+  $demo.removeClass("menu-active");
+  $(".demo__section.active-section").removeClass("active-section");
+  $(".demo__section--"+ targetSection).addClass("active-section");
+
+  setTimeout(function() {
+	$item.removeClass("clicked");
+  }, menuTextAT);
+});
+
+});
+	</script>
+</body>
+
+</html>

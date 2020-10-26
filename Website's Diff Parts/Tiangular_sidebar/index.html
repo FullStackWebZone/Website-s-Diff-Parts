@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+
+<body>
+  <div class="demo">
+    <div class="demo__top"></div>
+    <div class="demo__light"></div>
+    <div class="demo__content">
+      <div class="demo__menu page-active-1">
+        <div class="demo__menu-item demo__menu-item-1 m--btn js-menuBtn" data-page="1">
+          <span class="demo__menu-item-content">1</span>
+        </div>
+        <div class="demo__menu-item demo__menu-item-2" data-page="2">
+          <span class="demo__menu-item-content">2</span>
+        </div>
+        <div class="demo__menu-item demo__menu-item-3" data-page="3">
+          <span class="demo__menu-item-content">3</span>
+        </div>
+        <div class="demo__menu-item demo__menu-item-4" data-page="4">
+          <span class="demo__menu-item-content">4</span>
+        </div>
+        <div class="demo__menu-item demo__menu-item-5" data-page="5">
+          <span class="demo__menu-item-content">?!</span>
+        </div>
+      </div>
+      <div class="demo__page demo__page-1 active">
+        <h2 class="demo__page-heading">
+          BMW i<span class="demo__page-heading-colored">8</span>
+        </h2>
+        <h3 class="demo__page-subheading">Concept</h3>
+        <div class="demo__page-poly"></div>
+      </div>
+      <div class="demo__page demo__page-2">
+        <h2 class="demo__page-heading">Page 2</h2>
+        <div class="demo__page-poly"></div>
+      </div>
+      <div class="demo__page demo__page-3">
+        <h2 class="demo__page-heading">Page 3</h2>
+        <div class="demo__page-poly"></div>
+      </div>
+      <div class="demo__page demo__page-4">
+        <h2 class="demo__page-heading">Page 4</h2>
+        <div class="demo__page-poly"></div>
+      </div>
+      <div class="demo__page demo__page-5">
+        <h2 class="demo__page-heading">Links</h2>
+        <a class="demo__page-link" href="https://twitter.com/NikolayTalanov" target="_blank">My Twitter</a>
+        <a class="demo__page-link" href="https://codepen.io/suez/public/" target="_blank">My Codepen</a>
+        <div class="demo__page-poly"></div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    $(document).ready(function () {
+
+      var animating = false;
+
+      function menuToggle() {
+        $(".demo__page, .demo__menu, .demo__light").toggleClass("menu-active");
+        $(".js-menuBtn").toggleClass("m--btn");
+        $(document).off("click", ".demo__content", closeNotFocusedMenu);
+      };
+
+      function closeNotFocusedMenu(e) {
+        if (!$(e.target).closest(".demo__menu").length) {
+          menuToggle();
+          $(document).off("click", ".demo__content", closeNotFocusedMenu);
+        }
+      };
+
+      $(document).on("click", ".js-menuBtn", function () {
+        if (animating) return;
+        menuToggle();
+        $(document).on("click", ".demo__content", closeNotFocusedMenu);
+      });
+
+      $(document).on("click", ".demo__menu-item:not(.js-menuBtn)", function () {
+        animating = true;
+        var $this = $(this);
+        var page = +$this.data("page");
+        $(".js-menuBtn").removeClass("js-menuBtn");
+        $(".demo__page.active").removeClass("active");
+        $this.addClass("js-menuBtn m--btn");
+        $(".demo__page-" + page).addClass("active");
+        $(".demo__page, .demo__menu, .demo__light").removeClass("menu-active");
+        $(document).off("click", ".demo__content", closeNotFocusedMenu);
+        setTimeout(function () {
+          $(".demo__menu")[0].className = $(".demo__menu")[0].className.replace(/\bpage-active-.*\b/gi, "");
+          $(".demo__menu").addClass("page-active-" + page);
+          animating = false;
+        }, 1000);
+      });
+
+    });
+  </script>
+</body>
+
+</html>
